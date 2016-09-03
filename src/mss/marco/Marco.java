@@ -36,6 +36,10 @@ public class Marco {
 				Set<Integer> MSS = solver.grow(seed);
 				// yield MSS
 				allMSS.add(MSS);
+				if(MSS.size() == C.length){
+					// no other MSS can be found
+					break;
+				}
 				MAP.blockDown(MSS);
 			}
 			else{
@@ -45,16 +49,5 @@ public class Marco {
 			}
 		}
 		return allMSS;
-	}
-	
-	public static void printAllMSSs(BoolExpr[] C, ArrayList<Set<Integer>> allMSS){
-		System.out.println("The set of all Maximal Satisfiable Subsets are:");
-		System.out.println("-------------------------");
-		for(Set<Integer> MSS : allMSS){
-			for(int i : MSS){
-				System.out.println(C[i]);
-			}
-			System.out.println("-------------------------");
-		}
 	}
 }

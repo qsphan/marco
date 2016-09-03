@@ -78,11 +78,16 @@ public class SubsetSolver {
 		// seed has not been popped, pop it
 		solver.pop();
 		// convert seed to array list for convenience
-		ArrayList<BoolExpr> current = new ArrayList<BoolExpr>();
+		HashSet<BoolExpr> current = new HashSet<BoolExpr>();
 		for(BoolExpr c : seed){
 			current.add(c);
 		}
+	
 		for(BoolExpr c : seed){
+			if(current.size() <= 1){
+				// seed is already minimal, no need to shrink
+				break;
+			}
 			if(!current.contains(c)){
 				continue;
 			}
