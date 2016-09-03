@@ -18,7 +18,7 @@ public class Marco {
 	protected Context ctx = null;
 	protected Solver s = null;
 	
-	public Marco(Context ctx, BoolExpr[] hardConstraints){
+	public Marco(Context ctx, BoolExpr hardConstraints){
 		this.ctx = ctx;
 		s = ctx.mkSolver();
 		if(hardConstraints != null){
@@ -36,10 +36,12 @@ public class Marco {
 				Set<Integer> MSS = solver.grow(seed);
 				// yield MSS
 				allMSS.add(MSS);
+				
 				if(MSS.size() == C.length){
 					// no other MSS can be found
 					break;
 				}
+				
 				MAP.blockDown(MSS);
 			}
 			else{
@@ -49,5 +51,16 @@ public class Marco {
 			}
 		}
 		return allMSS;
+	}
+	
+	public static void printAllMSSs(BoolExpr[] C, ArrayList<Set<Integer>> allMSS){
+		System.out.println("The set of all Maximal Satisfiable Subsets are:");
+		System.out.println("-------------------------");
+		for(Set<Integer> MSS : allMSS){
+			for(int i : MSS){
+				System.out.println(C[i]);
+			}
+			System.out.println("-------------------------");
+		}
 	}
 }
